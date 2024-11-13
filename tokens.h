@@ -9,5 +9,7 @@
 #define T_PAREN      6
 #define T_SEMICOLON  7
 #define T_STRING     8
+#define T_CHAVES     9
+#define T_OPCOMP     10
 
 #endif
