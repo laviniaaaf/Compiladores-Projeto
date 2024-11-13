@@ -1,4 +1,4 @@
-var a = 10;
-if (a > 5) {
-    print("Maior que 5");
+var x = 10;
+if (x > 5) {
+    var y = 20; 
 }
