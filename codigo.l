@@ -1,20 +1,26 @@
 %{
 #include <stdio.h>
-#include "tokens.h" // Arquivo que define os tokens para uso no analisador
+#include "tokens.h"  // Inclui o arquivo de tokens, se necessário
 %}
 
 %%
 
-[a-zA-Z_][a-zA-Z0-9_]*       { return IDENT; }   // Identificadores
-"int"                        { return INT; }      // Palavra-chave "int"
-"+"                          { return PLUS; }     // Operador de adição
-"="                          { return ASSIGN; }   // Operador de atribuição
-[0-9]+                       { return NUMBER; }   // Números inteiros
-
-\n                           { /* Ignorar novas linhas */ }
-[ \t]+                       { /* Ignorar espaços e tabulações */ }
-.                            { /* Qualquer caractere não identificado é ignorado */ }
+// Regras de correspondência de padrões
+"if"            { printf("Palavra-chave: if\n"); return T_KEYWORD; }
+"var"           { printf("Palavra-chave: var\n"); return T_KEYWORD; }
+[a-zA-Z]+       { printf("Identificador: %s\n", yytext); return T_IDENTIFIER; }
+[0-9]+          { printf("Número: %s\n", yytext); return T_NUMBER; }
+"+" | "-" | "*" { printf("Operador: %s\n", yytext); return T_OPERATOR; }
+"="             { printf("Operador de atribuição: %s\n", yytext); return T_ASSIGN; }
+"(" | ")"       { printf("Parêntese: %s\n", yytext); return T_PAREN; }
+";"             { printf("Ponto e vírgula: %s\n", yytext); return T_SEMICOLON; }
+"\""[^\"\
+]*"\""{ printf("String: %s\n", yytext); return T_STRING; }
 
 %%
 
-int yywrap() { return 1; }
+// Função principal para rodar o analisador
+int main() {
+    yylex(); // Chama o analisador léxico
+    return 0;
+}
