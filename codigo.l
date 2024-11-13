@@ -1,26 +1,34 @@
 %{
 #include <stdio.h>
-#include "tokens.h"  // Inclui o arquivo de tokens
+#include "tokens.h"  
 %}
 
 %%
 
-// Regras de correspondência de padrões
-"if"            { printf("Palavra-chave: if\n"); return T_KEYWORD; }
-"var"           { printf("Palavra-chave: var\n"); return T_KEYWORD; }
+"if"            { printf("Palavra reservada: if\n"); return T_KEYWORD; }
+"else"          { printf("Palavra reservada: if\n"); return T_KEYWORD; }
+"var"           { printf("Palavra reservada: var\n"); return T_KEYWORD; }
 [a-zA-Z_][a-zA-Z0-9_]*  { printf("Identificador: %s\n", yytext); return T_IDENTIFIER; }
 [0-9]+          { printf("Número: %s\n", yytext); return T_NUMBER; }
-[+\\-\\*/]      { printf("Operador: %s\n", yytext); return T_OPERATOR; }
+">"             { printf("Operador de comparação: %s\n", yytext); return T_OPCOMP; }
+"<"             { printf("Operador de comparação: %s\n", yytext); return T_OPCOMP; }
+">="            { printf("Operador de comparação: %s\n", yytext); return T_OPCOMP; }
+"<="            { printf("Operador de comparação: %s\n", yytext); return T_OPCOMP; }
+"!="            { printf("Operador de comparação: %s\n", yytext); return T_OPCOMP; }
+"=="            { printf("Operador de comparação: %s\n", yytext); return T_OPCOMP; }
+[+\-*/]         { printf("Operador: %s\n", yytext); return T_OPERATOR; }
 "="             { printf("Operador de atribuição: %s\n", yytext); return T_ASSIGN; }
-"(" | ")"       { printf("Parêntese: %s\n", yytext); return T_PAREN; }
+"("             { printf("Parêntese abertura: %s\n", yytext); return T_PAREN; }
+")"             { printf("Parêntese fechamento: %s\n", yytext); return T_PAREN; }
 ";"             { printf("Ponto e vírgula: %s\n", yytext); return T_SEMICOLON; }
-"\"[^\"]*\""{ printf("String: %s\n", yytext); return T_STRING; }
+"{"             { printf("Chaves abertura: %s\n", yytext); return T_CHAVES; }
+"}"             { printf("Chaves fechamento: %s\n", yytext); return T_CHAVES; }
 
 %%
 
-// Função principal para rodar o analisador
 int main() {
-    yylex(); // Chama o analisador léxico
+    while (yylex() != 0){
+
+    } 
     return 0;
 }
-
